@@ -12,7 +12,9 @@ helm install camunda camunda/camunda-platform \
   --set operate.replicaCount=1 \
   --set tasklist.replicaCount=1 \
   --set identity.replicaCount=1 \
-  --set keycloak.replicaCount=1
+  --set keycloak.replicaCount=1 \
+  --set zeebe.gateway.replicaCount=1 \
+--set zeebe.broker.replicaCount=1
 
 
 
