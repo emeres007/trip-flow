@@ -1,3 +1,26 @@
+CAMUNDA LOCAL env + minikube OPTIMIZATION
+LOCAL development 
+
+helm install camunda camunda/camunda-platform \
+  --namespace camunda \
+  --create-namespace \
+  --set zeebe.replicas=1 \
+  --set elasticsearch.replicas=1 \
+  --set operate.replicas=1 \
+  --set tasklist.replicas=1 \
+  --set identity.replicas=1 \
+  --set zeebe.resources.requests.cpu=500m \
+  --set zeebe.resources.requests.memory=1024Mi \
+  --set elasticsearch.resources.requests.cpu=500m \
+  --set elasticsearch.resources.requests.memory=1024Mi \
+  --set zeebe.exporters.elastic.enabled=true \
+  --set zeebe.exporters.otherExporter.enabled=false
+
+
+
+
+
+
 Camunda Platform 8 with Spring Boot Demo
 ---
 
