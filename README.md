@@ -1,20 +1,18 @@
-CAMUNDA LOCAL env + minikube OPTIMIZATION
-LOCAL development 
+helm uninstall camunda -n camunda  # Remove previous release
+kubectl delete namespace camunda   # Optional: clean namespace
+kubectl create namespace camunda
 
 helm install camunda camunda/camunda-platform \
   --namespace camunda \
-  --create-namespace \
-  --set zeebe.replicas=1 \
-  --set elasticsearch.replicas=1 \
-  --set operate.replicas=1 \
-  --set tasklist.replicas=1 \
-  --set identity.replicas=1 \
-  --set zeebe.resources.requests.cpu=500m \
-  --set zeebe.resources.requests.memory=1024Mi \
-  --set elasticsearch.resources.requests.cpu=500m \
-  --set elasticsearch.resources.requests.memory=1024Mi \
-  --set zeebe.exporters.elastic.enabled=true \
-  --set zeebe.exporters.otherExporter.enabled=false
+  --set zeebe.gateway.replicaCount=1 \
+  --set zeebe.broker.replicaCount=1 \
+  --set elasticsearch.master.replicaCount=1 \
+  --set elasticsearch.data.replicaCount=0 \
+  --set elasticsearch.client.replicaCount=0 \
+  --set operate.replicaCount=1 \
+  --set tasklist.replicaCount=1 \
+  --set identity.replicaCount=1 \
+  --set keycloak.replicaCount=1
 
 
 
