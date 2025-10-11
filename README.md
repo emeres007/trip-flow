@@ -13,15 +13,24 @@ helm repo update
 
 
 [4] PORT FORWARDING
+{code}
 nohup kubectl port-forward svc/camunda-platform-tasklist 8081:80 --address 0.0.0.0 > /dev/null 2>&1 &
 nohup kubectl port-forward svc/camunda-platform-operate 8082:80 --address 0.0.0.0 > /dev/null 2>&1 &
+nohup kubectl port-forward svc/camunda-platform-zeebe-gateway 26500:26500 --address 0.0.0.0 > /dev/null 2>&1 &
+{code}
 
 
+[5] WHY do I need -address 0.0.0.0
+WSL2 runs Linux in a lightweight virtual machine with a separate network interface.
+Windows can’t automatically access WSL2’s localhost ports unless:
 
-kubectl port-forward svc/camunda-platform-tasklist 8081:80  --address 0.0.0.0
-Unable to listen on port 8081: Listeners failed to create with the following errors: [unable to create listener: Error listen tcp4 0.0.0.0:8081: bind: address already in use]
-error: unable to listen on any of the requested ports: [{8081 8080}]
-emeres@emeres:~$ kubectl port-forward svc/camunda-platform-tasklist 8082:80  --address 0.0.0.0
+You use --address 0.0.0.0, or
+
+You configure a netsh interface portproxy mapping, or
+
+You run everything directly from Windows (not ideal for Kind).
+
+So, --address 0.0.0.0 bridges that gap — it makes the port visible to your WSL2 IP, which Windows can reach.
 
 
 
