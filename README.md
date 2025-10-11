@@ -18,6 +18,12 @@ helm install camunda camunda/camunda-platform \
 
 
 
+kubectl port-forward svc/camunda-platform-tasklist 8081:80  --address 0.0.0.0
+Unable to listen on port 8081: Listeners failed to create with the following errors: [unable to create listener: Error listen tcp4 0.0.0.0:8081: bind: address already in use]
+error: unable to listen on any of the requested ports: [{8081 8080}]
+emeres@emeres:~$ kubectl port-forward svc/camunda-platform-tasklist 8082:80  --address 0.0.0.0
+
+
 
 
 
