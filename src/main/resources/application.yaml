@@ -6,13 +6,14 @@
 server:
   servlet:
     context-path: /trip
+  port: 8085
 
 spring:
   application:
     name: trip-flow
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: "jdbc:postgresql://localhost:5432/tripflow"
+    url: "jdbc:postgresql://localhost:55432/tripflow"
     username: postgres
     password: postgres
     hikari:
