@@ -2,19 +2,19 @@ helm uninstall camunda -n camunda  # Remove previous release
 kubectl delete namespace camunda   # Optional: clean namespace
 kubectl create namespace camunda
 
-helm install camunda camunda/camunda-platform \
-  --namespace camunda \
-  --set zeebe.gateway.replicaCount=1 \
-  --set zeebe.broker.replicaCount=1 \
-  --set elasticsearch.master.replicaCount=1 \
-  --set elasticsearch.data.replicaCount=0 \
-  --set elasticsearch.client.replicaCount=0 \
-  --set operate.replicaCount=1 \
-  --set tasklist.replicaCount=1 \
-  --set identity.replicaCount=1 \
-  --set keycloak.replicaCount=1 \
-  --set zeebe.gateway.replicaCount=1 \
---set zeebe.broker.replicaCount=1
+[1] CONFIGURE CLUSTER
+kind create cluster --name camunda-platform-local
+
+[2] DOWNLOAD HELM
+helm repo add camunda https://helm.camunda.io
+helm repo update
+
+[3] helm install camunda-platform camunda/camunda-platform -f values-local.yaml
+
+
+[4] PORT FORWARDING
+nohup kubectl port-forward svc/camunda-platform-tasklist 8081:80 --address 0.0.0.0 > /dev/null 2>&1 &
+nohup kubectl port-forward svc/camunda-platform-operate 8082:80 --address 0.0.0.0 > /dev/null 2>&1 &
 
 
 
