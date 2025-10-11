@@ -11,12 +11,15 @@ helm repo update
 
 [3] helm install camunda-platform camunda/camunda-platform -f values-local.yaml
 
+https://github.com/camunda/camunda-platform-helm/blob/main/charts/camunda-platform-8.8/values-local.yaml
+
 
 [4] PORT FORWARDING
 {code}
 nohup kubectl port-forward svc/camunda-platform-tasklist 8081:80 --address 0.0.0.0 > /dev/null 2>&1 &
 nohup kubectl port-forward svc/camunda-platform-operate 8082:80 --address 0.0.0.0 > /dev/null 2>&1 &
 nohup kubectl port-forward svc/camunda-platform-zeebe-gateway 26500:26500 --address 0.0.0.0 > /dev/null 2>&1 &
+nohup kubectl port-forward svc/camunda-platform-postgresql-web-modeler 55432:5432 --address 0.0.0.0 > /dev/null 2>&1 &
 {code}
 
 
@@ -48,6 +51,10 @@ It listens on your WSL2 IP address (e.g., 172.21.213.195:8081)
 
 So, from Windows, you can now reach:
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/c7407b4d-d129-4390-83c3-e6962c4d189e" />
+
+
+
+
 
 
 
