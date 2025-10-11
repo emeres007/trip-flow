@@ -1,3 +1,64 @@
+helm uninstall camunda -n camunda  # Remove previous release
+kubectl delete namespace camunda   # Optional: clean namespace
+kubectl create namespace camunda
+
+[1] CONFIGURE CLUSTER
+kind create cluster --name camunda-platform-local
+
+[2] DOWNLOAD HELM
+helm repo add camunda https://helm.camunda.io
+helm repo update
+
+[3] helm install camunda-platform camunda/camunda-platform -f values-local.yaml
+
+https://github.com/camunda/camunda-platform-helm/blob/main/charts/camunda-platform-8.8/values-local.yaml
+
+
+[4] PORT FORWARDING
+{code}
+nohup kubectl port-forward svc/camunda-platform-tasklist 8081:80 --address 0.0.0.0 > /dev/null 2>&1 &
+nohup kubectl port-forward svc/camunda-platform-operate 8082:80 --address 0.0.0.0 > /dev/null 2>&1 &
+nohup kubectl port-forward svc/camunda-platform-zeebe-gateway 26500:26500 --address 0.0.0.0 > /dev/null 2>&1 &
+nohup kubectl port-forward svc/camunda-platform-postgresql-web-modeler 55432:5432 --address 0.0.0.0 > /dev/null 2>&1 &
+{code}
+
+
+[5] WHY do I need -address 0.0.0.0
+WSL2 runs Linux in a lightweight virtual machine with a separate network interface.
+Windows can’t automatically access WSL2’s localhost ports unless:
+
+You use --address 0.0.0.0, or
+
+You configure a netsh interface portproxy mapping, or
+
+You run everything directly from Windows (not ideal for Kind).
+
+So, --address 0.0.0.0 bridges that gap — it makes the port visible to your WSL2 IP, which Windows can reach.
+
+
+When you run:
+
+kubectl port-forward --address 0.0.0.0 svc/camunda-platform-operate 8081:80
+
+
+This tells kubectl to bind the listening socket to all available network interfaces, not just localhost.
+
+Meaning:
+
+It listens on 127.0.0.1:8081 and
+
+It listens on your WSL2 IP address (e.g., 172.21.213.195:8081)
+
+So, from Windows, you can now reach:
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/c7407b4d-d129-4390-83c3-e6962c4d189e" />
+
+
+
+
+
+
+
+
 Camunda Platform 8 with Spring Boot Demo
 ---
 
