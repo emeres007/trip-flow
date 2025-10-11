@@ -33,6 +33,22 @@ You run everything directly from Windows (not ideal for Kind).
 So, --address 0.0.0.0 bridges that gap — it makes the port visible to your WSL2 IP, which Windows can reach.
 
 
+When you run:
+
+kubectl port-forward --address 0.0.0.0 svc/camunda-platform-operate 8081:80
+
+
+This tells kubectl to bind the listening socket to all available network interfaces, not just localhost.
+
+Meaning:
+
+It listens on 127.0.0.1:8081 and
+
+It listens on your WSL2 IP address (e.g., 172.21.213.195:8081)
+
+So, from Windows, you can now reach:
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/c7407b4d-d129-4390-83c3-e6962c4d189e" />
+
 
 
 
