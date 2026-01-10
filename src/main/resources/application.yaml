@@ -13,9 +13,10 @@ spring:
     name: trip-flow
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: "jdbc:postgresql://localhost:55432/tripflow"
+    url: "jdbc:postgresql://localhost:5432/postgres"
+#    url: "jdbc:postgresql://172.21.213.195:55432/camunda"
     username: postgres
-    password: postgres
+    password: postgresql
     hikari:
       connection-timeout: 5000
   flyway:
@@ -26,7 +27,8 @@ spring:
 zeebe:
   client:
     broker:
-      gateway-address: 127.0.0.1:26500
+      gateway-address: localhost:26500
+    #      gateway-address: 172.21.213.195:26500
     security:
       plaintext: true
 

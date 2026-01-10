@@ -60,7 +60,8 @@ public class TripTask {
     public TripTask(Long taskId, TripId tripId, String tripStartedBy, String name, String action, String candidateGroups, Integer version) {
         this.taskId = notNull(taskId);
         this.tripId = notNull(tripId);
-        this.tripStartedBy = notNull(tripStartedBy);
+        //this.tripStartedBy = notNull(tripStartedBy);
+        this.tripStartedBy = tripStartedBy;
         this.name = notNull(name);
         this.action = notNull(action);
         this.candidateGroups = notNull(candidateGroups);
