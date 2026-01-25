@@ -8,6 +8,10 @@ pipeline {
         maven "mvn"
     }
 
+    environment {
+        IMAGE_NAME = "trip-flow"
+        DOCKER_HUB = "emeres/trip-flow"
+    }
 
     stages {
         stage('Checkout') {
@@ -43,4 +47,22 @@ pipeline {
             echo 'Build failed. Check logs.'
         }
     }
+
+
+
+    stage('Build Docker Image') {
+         steps {
+              script {
+                   docker.build("${DOCKER_HUB}/${IMAGE_NAME}:latest")
+              }
+          }
+      }
+      stage('Push to Docker Hub') {
+          steps {
+              withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                  sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
+                  sh "docker push ${DOCKER_HUB}/${IMAGE_NAME}:latest"
+              }
+          }
+      }
 }
