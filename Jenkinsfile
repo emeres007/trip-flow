@@ -40,8 +40,7 @@ pipeline {
         stage('Build Docker Image') {
              steps {
                   script {
-                        sh "where I am $(pwd)"
-                        sh pwd
+                        sh 'echo "I am in $(pwd)"'
                        docker.build("${DOCKER_HUB}/${IMAGE_NAME}:latest")
                   }
               }
