@@ -9,8 +9,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "trip-flow"
-        DOCKER_HUB = "emeres/trip-flow"
+        DOCKER_IMAGE = "emeres/trip-flow"
     }
 
     stages {
@@ -41,7 +40,8 @@ pipeline {
              steps {
                   script {
                         sh 'echo "I am in $(pwd)"'
-                       docker.build("${DOCKER_HUB}/${IMAGE_NAME}:latest")
+
+                       docker.build("${DOCKER_IMAGE}:latest")
                   }
               }
           }
