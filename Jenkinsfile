@@ -56,12 +56,21 @@ pipeline {
           }
           stage('Deploy to Kubernetes') {
               steps {
-                  sh """
+
+              sh """
+              kubectl version --client
+              kubectl config current-context
+              kubectl cluster-info
+
+              """
+
+
+/*                   sh """
                     kubectl set image deployment/trip-flow \
                     trip-flow=${DOCKER_HUB}/${IMAGE_NAME}:${IMAGE_TAG}
 
                     kubectl rollout status deployment/trip-flow
-                  """
+                  """ */
                   sh 'echo End deployment'
               }
           }
