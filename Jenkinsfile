@@ -21,13 +21,22 @@ pipeline {
             }
         }
         stage('Build') {
+            parallel {
                 stage('Java') {
                     steps {
                           sh 'mvn clean install'
                     }
                 }
+            }
         }
 
+        stage('Test') {
+            steps {
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
 
         stage('Build Docker Image') {
              steps {
