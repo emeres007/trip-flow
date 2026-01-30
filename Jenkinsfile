@@ -11,6 +11,7 @@ pipeline {
     environment {
         IMAGE_NAME = "trip-flow"
         DOCKER_HUB = "emeres"
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -20,28 +21,19 @@ pipeline {
             }
         }
         stage('Build') {
-            parallel {
                 stage('Java') {
                     steps {
                           sh 'mvn clean install'
                     }
                 }
-            }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    sh 'mvn test'
-                }
-            }
-        }
 
         stage('Build Docker Image') {
              steps {
                   script {
                         sh 'echo "I am in $(pwd)"'
-                       docker.build("${DOCKER_HUB}/${IMAGE_NAME}:latest")
+                       docker.build("${DOCKER_HUB}/${IMAGE_NAME}:${IMAGE_TAG}")
                   }
               }
           }
@@ -49,7 +41,7 @@ pipeline {
               steps {
                   withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                       sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
-                      sh "docker push ${DOCKER_HUB}/${IMAGE_NAME}:latest"
+                      sh "docker push ${DOCKER_HUB}/${IMAGE_NAME}:${IMAGE_TAG}"
                   }
               }
           }
