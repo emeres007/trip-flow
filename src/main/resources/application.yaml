@@ -13,7 +13,7 @@ spring:
     name: trip-flow
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: "jdbc:postgresql://localhost:5432/testdb"
+    url: "jdbc:postgresql://postgres-service:5432/testdb"
 #    url: "jdbc:postgresql://172.21.213.195:55432/camunda"
     username: postgres
     password: password
