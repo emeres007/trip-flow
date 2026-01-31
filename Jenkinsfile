@@ -54,26 +54,24 @@ pipeline {
                   }
               }
           }
-          stage('Deploy to Kubernetes') {
-              steps {
+stage('Deploy to Kubernetes') {
+    steps {
+        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
 
-              sh """
-              kubectl version --client
-              kubectl config current-context
-              kubectl cluster-info
+            sh '''
+            export KUBECONFIG=$KUBECONFIG
 
-              """
+            kubectl version --client
+            kubectl get nodes
 
+            kubectl set image deployment/trip-flow \
+            trip-flow=${DOCKER_HUB}/${IMAGE_NAME}:${IMAGE_TAG}
 
-/*                   sh """
-                    kubectl set image deployment/trip-flow \
-                    trip-flow=${DOCKER_HUB}/${IMAGE_NAME}:${IMAGE_TAG}
-
-                    kubectl rollout status deployment/trip-flow
-                  """ */
-                  sh 'echo End deployment'
-              }
-          }
+            kubectl rollout status deployment/trip-flow
+            '''
+        }
+    }
+}
     }
     post {
         success {
