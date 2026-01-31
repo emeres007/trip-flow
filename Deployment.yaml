@@ -15,5 +15,6 @@ spec:
       containers:
         - name: trip-flow
           image: emeres/trip-flow:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
