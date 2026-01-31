@@ -59,7 +59,11 @@ stage('Deploy to Kubernetes') {
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
 
             sh '''
+
+
             export KUBECONFIG=$KUBECONFIG
+
+            echo "Using context: \$(kubectl config current-context)"
 
             kubectl version --client
             kubectl get nodes
