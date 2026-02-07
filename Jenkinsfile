@@ -60,6 +60,7 @@ stage('Deploy to Kubernetes') {
 
             sh '''
 
+
             export KUBECONFIG=$KUBECONFIG
 
             echo "Using context: \$(kubectl config current-context)"
