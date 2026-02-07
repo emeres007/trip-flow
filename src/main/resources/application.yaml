@@ -21,6 +21,10 @@ spring:
       connection-timeout: 5000
   flyway:
     schemas: public
+    create-schemas: true
+    url: jdbc:postgresql://postgres-service:5432/testdb
+    user: postgres
+    password: password
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
 
