@@ -1,4 +1,4 @@
-package com.github.tripflow.config;
+package com.github.tripflow.infrastructure.config;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import lombok.extern.slf4j.Slf4j;
