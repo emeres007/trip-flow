@@ -1,0 +1,106 @@
+# =========================
+# GLOBAL / IDENTITY
+# =========================
+global:
+  identity:
+    auth:
+      enabled: false  # Must be true for Operate/Tasklist/Webapp
+
+# =========================
+# IDENTITY
+# =========================
+identity:
+  enabled: false
+
+identityKeycloak:
+  enabled: false  # Disabled for local development
+
+# =========================
+# ZEEBE (SINGLE NODE)
+# =========================
+zeebe:
+  env:
+    - name: ZEEBE_BROKER_GATEWAY_SECURITY_AUTHENTICATION_MODE
+      value: none
+  enabled: true
+  clusterSize: 1
+  partitionCount: 1
+  replicationFactor: 1
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "1"
+      memory: "2Gi"
+
+zeebe-gateway:
+  replicas: 1
+  env:
+    - name: ZEEBE_GATEWAY_SECURITY_ENABLED
+      value: false
+    - name: ZEEBE_GATEWAY_SECURITY_AUTHENTICATION_MODE
+      value: none
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+
+# =========================
+# ELASTICSEARCH (SINGLE NODE)
+# =========================
+elasticsearch:
+  enabled: true
+  master:
+    replicaCount: 1
+    persistence:
+      size: 5Gi
+  data:
+    replicaCount: 0
+  ingest:
+    replicaCount: 0
+  coordinating:
+    replicaCount: 0
+  minimumMasterNodes: 1
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "1"
+      memory: "2Gi"
+
+# =========================
+# WEBAPP (includes Operate and Tasklist)
+# =========================
+webapp:
+  enabled: true
+  service:
+    type: ClusterIP
+    port: 8080
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+
+# =========================
+# CONNECTORS / OPTIMIZE (DISABLED)
+# =========================
+connectors:
+  enabled: false
+
+optimize:
+  enabled: false
+
+operate:
+  enabled: true
+
+tasklist:
+  enabled: true
