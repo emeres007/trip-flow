@@ -15,13 +15,21 @@ identity:
 identityKeycloak:
   enabled: false  # Disabled for local development
 
+
+orchestration:
+  # optional; default is true
+  enabled: true
+  env:
+    - name: ZEEBE_BROKER_GATEWAY_SECURITY_AUTHENTICATION_MODE
+      value: "none"
+    - name: ZEEBE_GATEWAY_SECURITY_ENABLED
+      value: "false"
+    - name: ZEEBE_GATEWAY_SECURITY_AUTHENTICATION_MODE
+      value: "none"
 # =========================
 # ZEEBE (SINGLE NODE)
 # =========================
 zeebe:
-  env:
-    - name: ZEEBE_BROKER_GATEWAY_SECURITY_AUTHENTICATION_MODE
-      value: none
   enabled: true
   clusterSize: 1
   partitionCount: 1
@@ -40,11 +48,6 @@ zeebe:
 
 zeebe-gateway:
   replicas: 1
-  env:
-    - name: ZEEBE_GATEWAY_SECURITY_ENABLED
-      value: false
-    - name: ZEEBE_GATEWAY_SECURITY_AUTHENTICATION_MODE
-      value: none
   readinessProbe:
     enabled: false
   livenessProbe:

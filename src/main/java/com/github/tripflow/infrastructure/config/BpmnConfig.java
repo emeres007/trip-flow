@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class BpmnConfig {
 
-    @Bean
+/*    @Bean
     public CommandLineRunner deployWorkflows(ZeebeClient client) {
         log.info("Deploying BPMN process - trip-flow...");
         return args -> {
@@ -21,5 +21,5 @@ public class BpmnConfig {
 
             log.info("Deploy result: {}", event);
         };
-    }
+    }*/
 }
