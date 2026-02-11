@@ -38,6 +38,7 @@ zeebe:
 logging:
   level:
     org.springframework.boot.context.config: debug
+    io.camunda.zeebe.client: DEBUG
     com.github.tripflow: debug
     com.github.tripflow.infrastructure.adapter.web.LocalDispatcherServlet: info
     org.springframework:
