@@ -32,8 +32,6 @@ zeebe:
   client:
     broker:
       gateway-address: camunda-platform-zeebe-gateway:26500
-#      gateway-address: localhost:26500
-    #      gateway-address: 172.21.213.195:26500
     security:
       plaintext: true
 
