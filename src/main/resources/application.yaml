@@ -29,6 +29,7 @@ spring:
     exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
 
 zeebe:
+
   client:
     broker:
       gateway-address: camunda-platform-zeebe-gateway:26500

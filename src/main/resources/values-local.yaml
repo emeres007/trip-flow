@@ -5,7 +5,11 @@ global:
   identity:
     auth:
       enabled: false  # Must be true for Operate/Tasklist/Webapp
-
+  elasticsearch:
+    url:
+      protocol: http
+      host: camunda-platform-elasticsearch
+      port: 9200
 # =========================
 # IDENTITY
 # =========================
@@ -26,6 +30,14 @@ orchestration:
       value: "false"
     - name: ZEEBE_GATEWAY_SECURITY_AUTHENTICATION_MODE
       value: "none"
+  configuration: |-
+    zeebe:
+      broker:
+        gateway:
+          security:
+            authentication:
+              method: none
+
 # =========================
 # ZEEBE (SINGLE NODE)
 # =========================
@@ -52,7 +64,23 @@ zeebe-gateway:
     enabled: false
   livenessProbe:
     enabled: false
+  env:
+    - name: ZEEBE_GATEWAY_SECURITY_ENABLED
+      value: "false"
+    - name: ZEEBE_GATEWAY_SECURITY_AUTHENTICATION_MODE
+      value: "NONE"
 
+zeebeGateway:
+  replicas: 1
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  env:
+    - name: ZEEBE_GATEWAY_SECURITY_ENABLED
+      value: "false"
+    - name: ZEEBE_GATEWAY_SECURITY_AUTHENTICATION_MODE
+      value: "NONE"
 # =========================
 # ELASTICSEARCH (SINGLE NODE)
 # =========================
@@ -104,6 +132,7 @@ optimize:
 
 operate:
   enabled: true
+
 
 tasklist:
   enabled: true
